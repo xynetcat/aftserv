@@ -20,7 +20,21 @@
         </el-table-column>
       </el-table>
     </div>
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="curPage"
+        :page-sizes="[5, 10, 15, 20]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+        >
+      </el-pagination>
+    </div>
   </div>
+  
+ 
 </template>
 
 <script>
@@ -28,6 +42,9 @@ export default {
   data() {
     return {
       tableData: [],
+      curPage:1,
+      pageSize:10,
+      total: 0
     };
   },
   mounted () {
@@ -38,16 +55,16 @@ export default {
       const that = this;
       that.$axios
         .post("/api/coupon/userlist", {
-          pageSize: 20,
-          curPage: 1
+          pageSize: that.pageSize,
+          curPage: that.curPage
         })
         .then(function(response) {
           console.log(response);
           const data = JSON.parse(response.data);
           if (data.errno === 0) {
             that.tableData = data.data.list;
+            that.total = data.data.total;
             sessionStorage.setItem("tableData", data.data.list);
-            that.reload();
             console.log(data);
           } else {
             that.error = data.errmsg;
@@ -56,7 +73,16 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    }
+    },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      console.log(val);
+      this.userList();
+    },
+    handleCurrentChange(val) {
+      this.curPage = val
+      this.userList();
+    },
   }
 };
 </script>
