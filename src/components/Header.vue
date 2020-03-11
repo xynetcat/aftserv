@@ -19,6 +19,7 @@ export default {
   },
   methods: {
       logout(){
+          sessionStorage.removeItem("username")
           this.$router.push({path:"/login"})
       }
   }
