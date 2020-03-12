@@ -1,10 +1,14 @@
 <template>
-  <div class="appeal">
-    <div class="appeal-title">申诉管理</div>
+  <div class="sale">
+    <div class="sale-title">待售列表</div>
     <div>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="phoneNum" label="申诉人" width="120"></el-table-column>
-        <el-table-column prop="blockId" label="货单号"></el-table-column>
+        <el-table-column prop="blockId" label="货单号" width="120"></el-table-column>
+        <el-table-column prop="blockOwner" label="出售者" width="120"></el-table-column>
+        <el-table-column prop="blockValue" label="价值" width="120"></el-table-column>
+        <el-table-column prop="blockCrtTime" label="创建时间" width="160"></el-table-column>
+        <el-table-column prop="saleTime" label="出售时间" width="160"></el-table-column>
+        <el-table-column prop="status" label="状态 "></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="danger" @click="handleDelete(scope.row.phoneNum)">确认处理</el-button>
@@ -41,7 +45,7 @@ export default {
     appealList() {
       const that = this;
       that.$axios
-        .post("/api/coupon/appeallist", {
+        .post("/api/coupon/salelist", {
           pageSize: 15,
           curPage: 1
         })
@@ -73,7 +77,7 @@ export default {
     handleDelete(phoneNum) {
       const that = this;
       that.$axios
-        .post("/api/coupon/delappeal", {
+        .post("/api/coupon/delsale", {
           phoneNum: phoneNum
         })
         .then(function(response) {
@@ -94,10 +98,10 @@ export default {
 </script>
 
 <style>
-.appeal {
+.sale {
   padding: 30px;
 }
-.appeal-title {
+.sale-title {
   height: 34px;
   line-height: 34px;
 }

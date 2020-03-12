@@ -1,10 +1,13 @@
 <template>
-  <div class="appeal">
-    <div class="appeal-title">申诉管理</div>
+  <div class="order">
+    <div class="order-title">预约信息</div>
     <div>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="phoneNum" label="申诉人" width="120"></el-table-column>
-        <el-table-column prop="blockId" label="货单号"></el-table-column>
+        <el-table-column prop="phoneNum" label="预约人" width="120"></el-table-column>
+        <el-table-column prop="cost_material" label="花费单量" width="120"></el-table-column>
+        <el-table-column prop="order_time" label="预约时间" width="120"></el-table-column>
+        <el-table-column prop="order_type" label="预约类型" width="120"></el-table-column>
+        <el-table-column prop="order_end_time" label="结束时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="danger" @click="handleDelete(scope.row.phoneNum)">确认处理</el-button>
@@ -41,7 +44,7 @@ export default {
     appealList() {
       const that = this;
       that.$axios
-        .post("/api/coupon/appeallist", {
+        .post("/api/coupon/orderlist", {
           pageSize: 15,
           curPage: 1
         })
@@ -94,10 +97,10 @@ export default {
 </script>
 
 <style>
-.appeal {
+.order {
   padding: 30px;
 }
-.appeal-title {
+.order-title {
   height: 34px;
   line-height: 34px;
 }

@@ -8,6 +8,9 @@ import Main from './components/Main.vue'
 import User from './components/User.vue'
 import Prod from './components/Prod.vue'
 import Appeal from './components/Appeal.vue'
+import Sale from './components/Sale.vue'
+import Order from './components/Order.vue'
+import Home from './components/Home.vue'
 import 'element-ui/lib/theme-chalk/index.css';
 
 
@@ -22,6 +25,10 @@ const routes = [
   { path: '/main', component: Main,
     children:[
       {
+        path:"home",
+        component:Home
+      },
+      {
         path:"user",
         component:User
       },{
@@ -30,6 +37,14 @@ const routes = [
       },{
         path:"appeal",
         component:Appeal
+      },
+      {
+        path:"sale",
+        component:Sale
+      },
+      {
+        path:"order",
+        component:Order
       }
     ]
   }
